@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graham Davis</title>
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        #text
+        {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="text">Work in progress<span id="dots"></span></div>
+
+    <script>
+        let dotCount = 0;
+        const dotsElement = document.getElementById("dots");
+
+        function updateDots()
+        {
+            dotCount = (dotCount + 1) % 4;
+            dotsElement.textContent = ".".repeat(dotCount);
+        }
+
+        setInterval(updateDots, 500);
+    </script>
+</body>
+</html>
