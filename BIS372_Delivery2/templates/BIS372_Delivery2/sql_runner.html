@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQL Runner - BIS 372</title>
+    <link rel="stylesheet" href="{{ url_for('bis372.static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('bis372.home') }}" class="back-link">&larr; Back</a>
+        <h1>SQL Runner</h1>
+        <button type="button" class="btn" style="margin-bottom: 15px;" onclick="document.getElementById('schema').classList.toggle('hidden')">Show / Hide Schema</button>
+        <pre id="schema" class="schema-box hidden">{{ schema }}</pre>
+
+        <form method="POST">
+            <textarea name="query" rows="6" placeholder="Enter a SQL query...">{{ query }}</textarea>
+            <button type="submit" class="btn">Run Query</button>
+        </form>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if message %}
+        <div class="success">{{ message }}</div>
+        {% endif %}
+
+        {% if columns %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        {% for val in row %}
+                        <td>{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

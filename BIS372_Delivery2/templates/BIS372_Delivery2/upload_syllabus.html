@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Syllabus - BIS 372</title>
+    <link rel="stylesheet" href="{{ url_for('bis372.static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('bis372.home') }}" class="back-link">&larr; Back</a>
+        <h1>Upload Syllabus</h1>
+
+        {% if success %}
+        <div class="success">Syllabus uploaded successfully.</div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Instructor Information</legend>
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName" required>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName" required>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Subject</legend>
+                <label for="subjectCode">Subject Code</label>
+                <input type="text" name="subjectCode" id="subjectCode" placeholder="e.g. BIS" required>
+
+                <label for="subjectName">Subject Name</label>
+                <input type="text" name="subjectName" id="subjectName" placeholder="e.g. Business Information Systems" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Course</legend>
+                <label for="courseNumber">Course Number</label>
+                <input type="text" name="courseNumber" id="courseNumber" placeholder="e.g. 372" required>
+
+                <label for="courseTitle">Course Title</label>
+                <input type="text" name="courseTitle" id="courseTitle" placeholder="e.g. Business Systems Design and Development" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Term</legend>
+                <label for="academicTerm">Academic Term</label>
+                <select name="academicTerm" id="academicTerm" required>
+                    <option value="">-- Select --</option>
+                    <option value="Fall">Fall</option>
+                    <option value="Spring">Spring</option>
+                    <option value="Summer">Summer</option>
+                    <option value="Winter">Winter</option>
+                </select>
+
+                <label for="academicYear">Academic Year</label>
+                <input type="text" name="academicYear" id="academicYear" placeholder="e.g. 2026" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Section &amp; File</legend>
+                <label for="sectionNumber">Section Number (optional)</label>
+                <input type="text" name="sectionNumber" id="sectionNumber" placeholder="e.g. 001">
+
+                <label for="file">Syllabus File (.pdf, .doc, .docx)</label>
+                <input type="file" name="file" id="file" accept=".pdf,.doc,.docx" required>
+            </fieldset>
+
+            <button type="submit" class="btn">Upload Syllabus</button>
+        </form>
+    </div>
+</body>
+</html>

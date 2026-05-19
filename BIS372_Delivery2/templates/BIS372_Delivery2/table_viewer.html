@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Viewer - BIS 372</title>
+    <link rel="stylesheet" href="{{ url_for('bis372.static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('bis372.home') }}" class="back-link">&larr; Back</a>
+        <h1>Table Viewer</h1>
+
+        <form method="GET" class="table-select-form">
+            <label for="table">Select Table:</label>
+            <select name="table" id="table" onchange="this.form.submit()">
+                {% for name in tableNames %}
+                <option value="{{ name }}" {% if name == selectedTable %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if columns %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        {% for i in range(columns|length) %}
+                        <td>
+                            {% if columns[i] == 'fileName' and selectedTable == 'Syllabus' %}
+                                {% set fileIdx = columns.index('filePath') %}
+                                <a href="{{ url_for('bis372.downloadDocument', filename=row[fileIdx]) }}">{{ row[i] }}</a>
+                            {% elif columns[i] == 'filePath' %}
+                                {{ row[i] }}
+                            {% else %}
+                                {{ row[i] }}
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% elif selectedTable %}
+        <p>No rows found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
